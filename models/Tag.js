@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, STRING } = require('sequelize');
 
 const sequelize = require('../config/connection.js');
 
@@ -8,11 +8,14 @@ Tag.init(
   {
     // define columns
     id: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
+    tag_name: {
+      type: STRING
+    }
   },
   {
     sequelize,
