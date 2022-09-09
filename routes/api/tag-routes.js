@@ -17,7 +17,27 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
-  Tag.findOne()
+  Tag.findOne(
+    {
+    
+      where: {
+        id: req.params.id
+      },
+  
+      attributes: ['id', 'category_name'],
+  
+      include: [
+        {
+          model: Product,
+          attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+        },
+        {
+          model: ProductTag,
+          attributes: ['id', 'product_id', 'tag_id']
+        }
+      ]
+    }
+  )
   .then((dbTagData) => res.json(dbTagData))
   .catch((err) => {
     console.log(err);
@@ -66,7 +86,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
-  
+
   Tag.destroy({
     where: {
       id: req.params.id
