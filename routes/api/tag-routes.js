@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll()
-  .then(dbCommentData => res.json(dbCommentData))
+  .then(dbTagData => res.json(dbTagData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   Tag.findOne()
-  .then((dbCategoryData) => res.json(dbCategoryData))
+  .then((dbTagData) => res.json(dbTagData))
   .catch((err) => {
     console.log(err);
     res.status(500).json(err);
@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
     
     req.body
       )
-      .then((dbCategoryData) => res.json(dbCategoryData))
+      .then((dbTagData) => res.json(dbTagData))
         .catch(err => {
           console.log(err);
           res.status(500).json(err);
@@ -50,12 +50,12 @@ router.put('/:id', (req, res) => {
       }
     }
   )
-    .then(dbPostData => {
-      if (!dbPostData) {
+    .then(dbTagData => {
+      if (!dbTagData) {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
-      res.json(dbPostData);
+      res.json(dbTagData);
     })
     .catch(err => {
       console.log(err);
@@ -66,17 +66,18 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
+  
   Tag.destroy({
     where: {
       id: req.params.id
     }
   })
-    .then(dbPostData => {
-      if (!dbPostData) {
+    .then(dbTagData => {
+      if (!dbTagData) {
         res.status(404).json({ message: 'No post found with this id' });
         return;
       }
-      res.json(dbPostData);
+      res.json(dbTagData);
     })
     .catch(err => {
       console.log(err);
